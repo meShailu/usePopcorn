@@ -70,7 +70,6 @@ export default function App() {
           <WatchedMovieList watched={watched} />
         </Box>
       </Main>
-      /
     </>
   );
 }
