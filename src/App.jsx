@@ -60,7 +60,7 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [selectedId, setSelectedId] = useState("null");
+  const [selectedId, setSelectedId] = useState(null);
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -131,6 +131,7 @@ export default function App() {
           {error && <ErrorMessage message={error} />}
         </Box>
         <Box>
+          {console.log(selectedId)}
           {selectedId ? (
             <MovieDetails
               selectedId={selectedId}
@@ -265,7 +266,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [isloading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
-  console.log(isWatched);
   const watchedUserRating = watched.find(
     (movie) => movie.imdbID === selectedId
   )?.userRating;
@@ -323,7 +323,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
             <button className="btn-back" onClick={onCloseMovie}>
               &larr;
             </button>
-            <img src={poster} alt={`Poster of ${movie}movie`} />
+            <img src={poster} alt={`Poster of ${title} movie`} />
             <div className="details-overview">
               <h2>{title}</h2>
               <p>
@@ -332,10 +332,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
               <p>{genre}</p>
               <p>
                 <span>⭐</span>
-                {imdbRating} IMdb rating
+                {imdbRating} IMDb rating
               </p>
             </div>
           </header>
+
           <section>
             <div className="rating">
               {!isWatched ? (
@@ -353,7 +354,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
                 </>
               ) : (
                 <p>
-                  You rated with movie {watchedUserRating}
+                  You rated this movie {watchedUserRating}
                   <span>⭐</span>{" "}
                 </p>
               )}
@@ -369,7 +370,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     </div>
   );
 }
-
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
