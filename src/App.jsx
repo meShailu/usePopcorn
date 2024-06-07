@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { WatchedMovieList } from "./components/WatchedMovieList";
 import WatchedSummary from "./components/WatchedSummary";
 import MovieDetails from "./components/MovieDetails";
 import MovieList from "./components/MovieList";
 import Box from "./components/Box";
-import NavBar, { Logo, Numresult, Search } from "./components/NavBar";
+import NavBar, { Logo, Numresult } from "./components/NavBar";
 import Loader from "./components/Loader";
 
 const tempMovieData = [
@@ -167,6 +167,33 @@ export default function App() {
         </Box>
       </Main>
     </>
+  );
+}
+
+export function Search({ query, setQuery }) {
+  const inputEl = useRef(null);
+
+  useEffect(function () {
+    function callback(e) {
+      if (document.activeElement === inputEl.current) return;
+
+      if (e.code === "Enter") inputEl.current.focus();
+      setQuery("");
+    }
+
+    document.addEventListener("keydown", callback);
+    return () => document.addEventListener("keydown", callback);
+  }, []);
+
+  return (
+    <input
+      className="search"
+      type="text"
+      placeholder="Search Movies..."
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      ref={inputEl}
+    />
   );
 }
 

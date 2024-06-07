@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 export default function NavBar({ children }) {
   return <nav className="nav-bar">{children}</nav>;
 }
@@ -8,18 +10,6 @@ export function Logo() {
       <span role="img">🍿</span>
       <h1>usePopcorn</h1>
     </div>
-  );
-}
-
-export function Search({ query, setQuery }) {
-  return (
-    <input
-      className="search"
-      type="text"
-      placeholder="Search Movies..."
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-    />
   );
 }
 
