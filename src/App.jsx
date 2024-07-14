@@ -54,7 +54,6 @@ const tempWatchedData = [
     userRating: 9,
   },
 ];
-
 const KEY = "23bd6ad1";
 
 export default function App() {
